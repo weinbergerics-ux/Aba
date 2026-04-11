@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scientiae-Naturalis 2026 · Agrifood Biotech & AI</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap');
+
+:root {
+  --ink:    #0a0f1e;
+  --teal:   #00c9a7;
+  --teal2:  #00a896;
+  --navy:   #002147;
+  --sage:   #e8f5f0;
+  --gold:   #f5c842;
+  --white:  #ffffff;
+  --mist:   #f0f4f2;
+  --slate:  #4a5568;
+  --serif:  'EB Garamond','Times New Roman',serif;
+  --sans:   'DM Sans','Helvetica Neue',sans-serif;
+  --mono:   'DM Mono','Courier New',monospace;
+  --r:      6px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--ink);color:var(--white);overflow-x:hidden;line-height:1.6}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:var(--teal);border-radius:2px}
+
+/* ── CURSOR GLOW ── */
+.cursor-glow{position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(0,201,167,0.07) 0%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%);transition:opacity 0.3s;z-index:9999;mix-blend-mode:screen}
+
+/* ══ NAV ══ */
+nav{position:fixed;top:0;width:100%;z-index:1000;padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,15,30,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,201,167,0.15)}
+.nav-brand{font-family:var(--serif);font-size:1.05rem;font-weight:700;font-style:italic;color:var(--white);text-decoration:none;letter-spacing:0.01em}
+.nav-brand span{color:var(--teal)}
+.nav-links{display:flex;gap:0.1rem;list-style:none;align-items:center}
+.nav-links a{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;padding:0.32rem 0.65rem;border-radius:4px;transition:all 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--teal);background:rgba(0,201,167,0.1)}
+.pay-dot a{color:rgba(255,255,255,0.08)!important;font-size:0.5rem!important}
+.pay-dot a:hover{color:var(--teal)!important}
+.nav-actions{display:flex;gap:0.4rem;align-items:center}
+.shr-btn{width:26px;height:26px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;text-decoration:none;opacity:0.7;transition:all 0.2s;border:none;cursor:pointer}
+.shr-btn:hover{opacity:1;transform:scale(1.1)}
+.shr-li{background:#0077b5;color:#fff}
+.shr-f6{background:#ff6b35;color:#fff;font-family:var(--mono);font-size:0.5rem}
+.shr-fb{background:#1877f2;color:#fff}
+.shr-x {background:#111;color:#fff}
+.hamburger{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:20px;height:1.5px;background:rgba(255,255,255,0.7);transition:all 0.3s}
+
+/* ══ HERO ══ */
+#home{min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden;padding:80px 2rem 3rem}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0a0f1e 0%,#001a2e 40%,#002a1f 100%)}
+.hero-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 50%,rgba(0,201,167,0.12) 0%,transparent 65%)}
+/* animated mesh grid */
+.mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(0,201,167,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,201,167,0.04) 1px,transparent 1px);background-size:50px 50px;animation:meshMove 20s linear infinite}
+@keyframes meshMove{0%{background-position:0 0}100%{background-position:50px 50px}}
+/* floating orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(60px);animation:float 8s ease-in-out infinite}
+.orb1{width:300px;height:300px;background:rgba(0,201,167,0.15);top:10%;right:10%;animation-delay:0s}
+.orb2{width:200px;height:200px;background:rgba(0,33,71,0.6);bottom:20%;left:5%;animation-delay:-3s}
+.orb3{width:150px;height:150px;background:rgba(245,200,66,0.1);top:60%;right:25%;animation-delay:-5s}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-20px) scale(1.05)}}
+
+.hero-inner{position:relative;z-index:1;max-width:1000px;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,201,167,0.1);border:1px solid rgba(0,201,167,0.3);color:var(--teal);font-family:var(--mono);font-size:0.63rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.28rem 0.8rem;border-radius:20px;margin-bottom:1.2rem}
+.hero-badge .pulse{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,201,167,0.4)}50%{opacity:0.6;box-shadow:0 0 0 6px rgba(0,201,167,0)}}
+
+.hero-eyeline{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:0.3rem}
+.hero-kicker{font-family:var(--serif);font-size:clamp(1.2rem,2.5vw,1.8rem);font-weight:400;color:rgba(255,255,255,0.5);font-style:italic}
+h1.hero-h{font-family:var(--serif);font-size:clamp(3rem,7vw,5.5rem);font-weight:700;line-height:1.05;color:var(--white);margin-bottom:0.2rem}
+h1.hero-h .teal{color:var(--teal);display:block}
+.hero-tagline{font-family:var(--serif);font-size:clamp(1rem,2vw,1.3rem);font-style:italic;color:rgba(255,255,255,0.5);margin-bottom:1.4rem;max-width:580px}
+
+/* tag pills */
+.hero-pills{display:flex;flex-wrap:wrap;gap:0.45rem;margin-bottom:1.6rem}
+.pill{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.08em;padding:0.2rem 0.65rem;border-radius:20px;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.55)}
+
+/* CTA cluster */
+.cta-cluster{display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.2rem}
+.btn-main{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;background:var(--teal);color:var(--ink);padding:0.78rem 1.8rem;border:none;border-radius:var(--r);text-decoration:none;cursor:pointer;font-weight:500;transition:all 0.22s;display:inline-block;position:relative;overflow:hidden}
+.btn-main::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,0.15);transform:scaleX(0);transform-origin:left;transition:transform 0.22s}
+.btn-main:hover::before{transform:scaleX(1)}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,201,167,0.35)}
+.btn-ghost{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;background:transparent;color:rgba(255,255,255,0.8);padding:0.78rem 1.8rem;border:1px solid rgba(255,255,255,0.25);border-radius:var(--r);text-decoration:none;cursor:pointer;transition:all 0.22s;display:inline-block}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px)}
+.btn-sub{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(245,200,66,0.15);color:var(--gold);padding:0.78rem 1.8rem;border:1px solid rgba(245,200,66,0.3);border-radius:var(--r);text-decoration:none;cursor:pointer;transition:all 0.22s;display:inline-block}
+.btn-sub:hover{background:rgba(245,200,66,0.25);transform:translateY(-2px)}
+
+/* download row */
+.dl-strip{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.8rem}
+.btn-dl{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.07em;text-transform:uppercase;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.65);padding:0.5rem 0.9rem;border:1px solid rgba(255,255,255,0.12);border-radius:var(--r);text-decoration:none;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.35rem}
+.btn-dl:hover{border-color:var(--teal);color:var(--teal);background:rgba(0,201,167,0.08);transform:translateY(-1px)}
+.btn-dl-icon{font-size:0.85rem}
+
+/* deadline ticker */
+.deadline-bar{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(0,201,167,0.18);border-radius:var(--r);overflow:hidden;background:rgba(255,255,255,0.03)}
+.dli{padding:0.85rem 1rem;border-right:1px solid rgba(0,201,167,0.12);text-align:center}
+.dli:last-child{border-right:none}
+.dl-l{font-family:var(--mono);font-size:0.56rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:block;margin-bottom:0.15rem}
+.dl-d{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--teal)}
+
+/* ══ SECTION CHROME ══ */
+.section{padding:5rem 2rem}
+.section-light{background:var(--white);color:var(--ink)}
+.section-mist{background:var(--mist);color:var(--ink)}
+.section-dark{background:#0d1321;color:var(--white)}
+.section-navy{background:var(--navy);color:var(--white)}
+.si{max-width:1100px;margin:0 auto}
+.sec-eyebrow{font-family:var(--mono);font-size:0.63rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:0.4rem;display:block}
+h2.sec-h{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.15;margin-bottom:1rem}
+h2.sec-h em{color:var(--teal);font-style:italic}
+.sec-lead{font-size:1.05rem;color:var(--slate);line-height:1.85;max-width:680px;margin-bottom:2rem}
+.section-light .sec-lead,.section-mist .sec-lead{color:var(--slate)}
+.section-dark .sec-lead,.section-navy .sec-lead{color:rgba(255,255,255,0.65)}
+.teal-rule{width:40px;height:3px;background:var(--teal);border-radius:2px;margin:0.6rem 0 1.4rem}
+
+/* ══ AGENDA ══ */
+.format-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.85rem;margin-bottom:2rem}
+.fc{background:var(--white);border:1px solid #e2e8f0;border-radius:var(--r);padding:1.2rem;border-top:3px solid var(--teal);transition:all 0.22s;cursor:default}
+.fc:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,168,150,0.12)}
+.fc .ico{font-size:1.4rem;margin-bottom:0.5rem}
+.fc h4{font-family:var(--serif);font-size:0.95rem;font-weight:700;color:var(--navy);margin-bottom:0.2rem}
+.fc p{font-size:0.85rem;color:var(--slate);line-height:1.6}
+.tabs{display:flex;gap:0.3rem;flex-wrap:wrap;border-bottom:2px solid #e2e8f0;margin-bottom:1.8rem}
+.tb{font-family:var(--mono);font-size:0.63rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.45rem 0.95rem;background:transparent;color:#94a3b8;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:all 0.18s;margin-bottom:-2px}
+.tb:hover,.tb.active{color:var(--navy);border-bottom-color:var(--teal)}
+.tp{display:none}
+.tp.active{display:block}
+.sess{border-left:3px solid var(--teal);background:#f8fafc;padding:1rem 1.4rem;margin-bottom:1rem;border-radius:0 var(--r) var(--r) 0;transition:all 0.18s}
+.sess:hover{border-left-color:var(--navy);background:#f0f4f8}
+.sess h3{font-family:var(--serif);font-size:0.97rem;font-weight:700;color:var(--navy);margin-bottom:0.55rem}
+.sess-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0.65rem}
+.sc h4{font-family:var(--mono);font-size:0.56rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal2);margin-bottom:0.25rem;border-bottom:1px solid #e2e8f0;padding-bottom:0.18rem}
+.sc ul{list-style:none}
+.sc li{font-size:0.85rem;color:#475569;padding:0.18rem 0;border-bottom:1px dotted #e2e8f0;line-height:1.4}
+.sc li:last-child{border:none}
+
+/* ══ ABSTRACT ══ */
+.ab-prose-card{background:var(--white);border:1px solid #e2e8f0;border-radius:var(--r);padding:2rem 2.4rem;border-left:4px solid var(--teal);font-size:1.05rem;color:var(--slate);line-height:1.9;margin-bottom:2rem}
+.ab-prose-card strong{color:var(--navy)}
+.sub-cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.85rem}
+.sub-cat{background:var(--navy);border-radius:var(--r);padding:1.3rem;border-top:3px solid var(--teal);transition:transform 0.22s}
+.sub-cat:hover{transform:translateY(-3px)}
+.sub-cat h4{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:0.4rem}
+.sub-cat p{font-size:0.88rem;color:rgba(255,255,255,0.72);line-height:1.65}
+
+/* ══ COMMITTEES ══ */
+.cmte-note{background:rgba(0,201,167,0.08);border:1px solid rgba(0,201,167,0.2);border-radius:var(--r);padding:1.1rem 1.5rem;margin-bottom:2rem;font-size:0.95rem;color:rgba(255,255,255,0.75);line-height:1.8}
+.cmte-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.8rem}
+.cmte-box{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);padding:1.4rem}
+.cmte-box h3{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--teal);padding-bottom:0.45rem;border-bottom:1px solid rgba(0,201,167,0.2);margin-bottom:0.85rem}
+.cmte-box ul{list-style:none}
+.cmte-box li{font-size:0.9rem;color:rgba(255,255,255,0.75);padding:0.25rem 0;border-bottom:1px dotted rgba(255,255,255,0.07);display:flex;gap:0.45rem;align-items:baseline}
+.cmte-box li:last-child{border:none}
+.cmte-box li .role{font-family:var(--mono);font-size:0.57rem;color:var(--teal);letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.rev-badges{display:flex;gap:1rem;flex-wrap:wrap}
+.rev-badge{background:rgba(0,201,167,0.1);border:1px solid rgba(0,201,167,0.25);border-radius:var(--r);padding:1rem 1.5rem;text-align:center;flex:1;min-width:120px}
+.rev-badge strong{display:block;font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--teal)}
+.rev-badge span{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
+
+/* ══ ORGANIZERS ══ */
+.org-textbox{background:var(--white);border:1px solid #e2e8f0;border-radius:var(--r);padding:2rem 2.4rem;position:relative;margin-bottom:2rem}
+.org-textbox::before{content:'ORGANISING COMMITTEE';position:absolute;top:-0.65rem;left:1.4rem;background:var(--white);font-family:var(--mono);font-size:0.57rem;letter-spacing:0.16em;color:var(--teal2);padding:0 0.4rem}
+.org-textbox p{font-size:0.97rem;color:var(--slate);line-height:1.88;margin-bottom:0.8rem}
+.org-textbox p:last-child{margin-bottom:0}
+.org-textbox strong{color:var(--navy)}
+.stat-row{display:flex;flex-wrap:wrap;gap:0.85rem;margin:1.5rem 0}
+.stat{background:var(--mist);border-radius:var(--r);padding:1rem 1.4rem;text-align:center;flex:1;min-width:90px}
+.stat .sn{font-family:var(--serif);font-size:2.1rem;font-weight:700;color:var(--teal2);line-height:1}
+.stat .sd{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.09em;text-transform:uppercase;color:var(--slate);margin-top:0.15rem}
+
+/* partner lists */
+.plbl{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal2);margin-bottom:0.75rem;display:block}
+.partner-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:0.6rem;margin-bottom:1.5rem}
+.pb{background:var(--white);border:1px solid #e2e8f0;border-radius:var(--r);padding:0.75rem 1rem;transition:all 0.2s}
+.pb:hover{border-color:var(--teal2);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,168,150,0.1)}
+.pb .pn{font-family:var(--serif);font-size:0.88rem;font-weight:600;color:var(--navy);line-height:1.3}
+.pb .pt{font-family:var(--mono);font-size:0.57rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--teal2);margin-top:0.12rem}
+
+/* QR */
+.qr-row{display:flex;flex-wrap:wrap;gap:2rem;align-items:center;padding:1.5rem 2rem;background:var(--mist);border-radius:var(--r);border:1px solid #e2e8f0;margin-top:1.5rem}
+.qr-text h4{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:0.4rem}
+.qr-text p{font-size:0.9rem;color:var(--slate);line-height:1.75;max-width:400px}
+.qr-url{font-family:var(--mono);font-size:0.7rem;color:var(--teal2);margin-top:0.4rem;display:block}
+
+.vol-box{background:var(--navy);border-radius:var(--r);padding:1.5rem 2rem;margin-top:1rem;border:1px solid rgba(0,201,167,0.2)}
+.vol-box h3{font-family:var(--serif);font-size:1rem;color:var(--teal);margin-bottom:0.4rem}
+.vol-box p{font-size:0.9rem;color:rgba(255,255,255,0.72);line-height:1.8}
+.out-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.85rem;margin-top:1.4rem}
+.out-card{background:var(--white);border:1px solid #e2e8f0;border-radius:var(--r);padding:1rem 1.2rem;display:flex;gap:0.6rem;align-items:flex-start;transition:transform 0.2s}
+.out-card:hover{transform:translateY(-2px)}
+.out-card p{font-size:0.88rem;color:var(--slate);line-height:1.65}
+
+/* ══ DOWNLOADS ══ */
+#downloads{background:var(--ink)}
+.dl-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1.5rem}
+.dl-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r);padding:1.5rem;display:flex;flex-direction:column;gap:0.75rem;transition:all 0.22s;cursor:pointer}
+.dl-card:hover{border-color:rgba(0,201,167,0.4);background:rgba(0,201,167,0.06);transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,201,167,0.12)}
+.dl-card .dl-emoji{font-size:2rem}
+.dl-card h4{font-family:var(--serif);font-size:0.97rem;font-weight:700;color:var(--white)}
+.dl-card p{font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.55;flex:1}
+.dl-card .dl-btn{font-family:var(--mono);font-size:0.63rem;letter-spacing:0.09em;text-transform:uppercase;color:var(--teal);display:inline-flex;align-items:center;gap:0.35rem;border-top:1px solid rgba(0,201,167,0.15);padding-top:0.75rem;margin-top:auto}
+.dl-card .dl-btn:hover{color:var(--teal2)}
+
+/* ══ SPONSORS ══ */
+.p-flag{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(0,201,167,0.12);border:1px solid rgba(0,201,167,0.25);color:var(--teal);font-family:var(--mono);font-size:0.63rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.35rem 0.8rem;border-radius:20px;margin-bottom:1.3rem}
+.tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.75rem}
+.tag{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.06em;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);padding:0.18rem 0.55rem;border-radius:20px}
+.tier-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0.85rem;margin-top:1.5rem}
+.tier-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r);padding:1.2rem;text-align:center;transition:all 0.22s}
+.tier-card:hover{border-color:rgba(0,201,167,0.35);background:rgba(0,201,167,0.06);transform:translateY(-3px)}
+.tier-card .tl{font-family:var(--mono);font-size:0.57rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:0.35rem}
+.tier-card h4{font-family:var(--serif);font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:0.25rem}
+.tier-card p{font-size:0.82rem;color:rgba(255,255,255,0.55)}
+
+/* ══ CONTACT ══ */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.5rem}
+.cc{background:var(--white);border:1px solid #e2e8f0;border-radius:var(--r);padding:1.3rem 1.5rem;border-top:3px solid var(--teal);transition:transform 0.2s}
+.cc:hover{transform:translateY(-3px)}
+.cc h4{font-family:var(--serif);font-size:0.95rem;font-weight:700;color:var(--navy);margin-bottom:0.3rem}
+.cc p{font-size:0.85rem;color:var(--slate);margin-bottom:0.55rem;line-height:1.6}
+.cc a{font-family:var(--mono);font-size:0.72rem;color:var(--teal2);text-decoration:none;word-break:break-all;display:block;transition:color 0.18s}
+.cc a:hover{color:var(--navy);text-decoration:underline}
+
+/* ══ PAYMENT ══ */
+#payment{display:none;background:#0a0f1e;color:#fff;padding:4rem 2rem}
+#payment.visible{display:block}
+.pay-inner{max-width:860px;margin:0 auto}
+.pay-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
+.pay-hdr h2{font-family:var(--serif);font-size:1.6rem;color:var(--teal)}
+.pay-close{background:none;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);padding:0.32rem 0.75rem;font-family:var(--mono);font-size:0.65rem;cursor:pointer;border-radius:4px;transition:all 0.18s}
+.pay-close:hover{border-color:var(--teal);color:var(--teal)}
+.pay-apc{background:rgba(0,201,167,0.08);border:1px solid rgba(0,201,167,0.2);border-radius:var(--r);padding:1rem 1.4rem;margin-bottom:1.8rem;font-size:0.9rem;color:rgba(255,255,255,0.75);line-height:1.75}
+.pay-apc strong{color:var(--teal)}
+.pay-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:1rem}
+.pay-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r);padding:1.3rem;transition:all 0.2s}
+.pay-card:hover{border-color:rgba(0,201,167,0.3);transform:translateY(-2px)}
+.pay-card h3{font-family:var(--serif);font-size:0.95rem;font-weight:700;color:var(--teal);margin-bottom:0.18rem}
+.pc-sub{font-family:var(--mono);font-size:0.6rem;color:rgba(255,255,255,0.35);display:block;margin-bottom:0.85rem}
+.pay-now{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.09em;text-transform:uppercase;background:var(--teal);color:var(--ink);padding:0.46rem 1rem;border:none;border-radius:4px;cursor:pointer;font-weight:500;transition:background 0.18s}
+.pay-now:hover{background:var(--teal2)}
+.inv-btn{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.09em;text-transform:uppercase;background:transparent;color:var(--teal);padding:0.46rem 1rem;border:1px solid rgba(0,201,167,0.3);border-radius:4px;cursor:pointer;transition:all 0.18s}
+.inv-btn:hover{background:rgba(0,201,167,0.1)}
+.pay-notes{margin-top:1.8rem;border-top:1px solid rgba(255,255,255,0.07);padding-top:1.3rem}
+.pay-notes h4{font-family:var(--mono);font-size:0.63rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem}
+.pay-notes ul{list-style:none}
+.pay-notes li{font-size:0.88rem;color:rgba(255,255,255,0.65);padding:0.25rem 0 0.25rem 1rem;position:relative;line-height:1.55}
+.pay-notes li::before{content:'·';position:absolute;left:0;color:var(--teal)}
+
+/* ══ SUBSCRIBE MODAL ══ */
+#sub-modal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.65);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1rem}
+#sub-modal.open{display:flex}
+.sub-modal{background:var(--white);max-width:640px;width:100%;display:grid;grid-template-columns:1fr 1fr;border-radius:12px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.4);animation:slideUp 0.35s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.sub-side{background:linear-gradient(150deg,var(--navy) 0%,#00332a 100%);padding:2.5rem 2rem;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.sub-side::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='360'%3E%3Cellipse fill='none' stroke='%2300c9a7' stroke-width='1.2' opacity='0.12' cx='140' cy='180' rx='90' ry='140'/%3E%3Cellipse fill='none' stroke='%2300c9a7' stroke-width='0.8' opacity='0.08' cx='140' cy='180' rx='50' ry='140'/%3E%3Cline stroke='%2300c9a7' stroke-width='0.7' opacity='0.1' x1='50' y1='180' x2='230' y2='180'/%3E%3Cline stroke='%2300c9a7' stroke-width='0.7' opacity='0.1' x1='140' y1='40' x2='140' y2='320'/%3E%3Ccircle fill='%2300c9a7' opacity='0.2' cx='140' cy='60' r='5'/%3E%3Ccircle fill='%2300c9a7' opacity='0.2' cx='140' cy='300' r='5'/%3E%3Ccircle fill='%2300c9a7' opacity='0.2' cx='50' cy='180' r='5'/%3E%3Ccircle fill='%2300c9a7' opacity='0.2' cx='230' cy='180' r='5'/%3E%3C/svg%3E") center/cover}
+.sub-side h3{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:#fff;position:relative;z-index:1;line-height:1.2;margin-bottom:0.7rem}
+.sub-side p{font-size:0.85rem;color:rgba(255,255,255,0.62);position:relative;z-index:1;line-height:1.7}
+.sub-form{padding:2rem 1.8rem;display:flex;flex-direction:column;gap:0}
+.sub-form-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem}
+.sub-form-hdr h4{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--navy)}
+.sub-close{background:none;border:1px solid #e2e8f0;color:#94a3b8;padding:0.28rem 0.6rem;font-family:var(--mono);font-size:0.63rem;cursor:pointer;border-radius:4px;transition:all 0.18s}
+.sub-close:hover{border-color:var(--teal2);color:var(--teal2)}
+.sub-field{width:100%;font-family:var(--sans);font-size:0.92rem;padding:0.6rem 0.85rem;border:1px solid #e2e8f0;border-radius:var(--r);margin-bottom:0.65rem;outline:none;transition:border-color 0.18s;color:var(--navy);background:var(--mist)}
+.sub-field:focus{border-color:var(--teal2);background:var(--white)}
+.sub-submit{width:100%;background:var(--navy);color:#fff;font-family:var(--mono);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem;border:none;border-radius:var(--r);cursor:pointer;transition:all 0.2s;font-weight:500}
+.sub-submit:hover{background:var(--teal2);transform:translateY(-1px)}
+.sub-priv{font-family:var(--mono);font-size:0.58rem;color:#94a3b8;margin-top:0.65rem;text-align:center}
+
+/* ══ FOOTER ══ */
+footer{background:#060a14;color:rgba(255,255,255,0.45);padding:2.5rem 2rem;text-align:center;border-top:1px solid rgba(0,201,167,0.12)}
+footer .fb{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--white);font-style:italic;margin-bottom:0.35rem}
+footer .fm{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.07em;line-height:2.1}
+footer a{color:var(--teal);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+/* ══ FLOAT BAR ══ */
+.float-bar{position:fixed;right:0.65rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:0.3rem;z-index:500}
+.fb-btn{width:28px;height:28px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-weight:700;text-decoration:none;opacity:0.7;transition:all 0.2s;border:none;font-size:0.62rem;cursor:pointer}
+.fb-btn:hover{opacity:1;transform:scale(1.1)}
+.fb-li{background:#0077b5;color:#fff}
+.fb-f6{background:#ff6b35;color:#fff;font-family:var(--mono);font-size:0.48rem}
+.fb-fb{background:#1877f2;color:#fff}
+.fb-x {background:#111;color:#fff}
+.fb-sub{background:var(--teal);color:var(--ink);margin-top:0.25rem}
+
+/* ══ SCROLL REVEAL ══ */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ══ MOBILE ══ */
+@media(max-width:780px){
+  .hamburger{display:flex}
+  .nav-links{display:none;position:absolute;top:56px;left:0;width:100%;background:rgba(10,15,30,0.97);flex-direction:column;padding:0.75rem;border-bottom:1px solid rgba(0,201,167,0.15)}
+  .nav-links.open{display:flex}
+  .nav-actions{display:none}
+  .float-bar{display:flex}
+  .cmte-grid{grid-template-columns:1fr}
+  .sub-modal{grid-template-columns:1fr}
+  .sub-side{display:none}
+  .deadline-bar{grid-template-columns:repeat(2,1fr)}
+  .dli:nth-child(2){border-right:none}
+  .hero-eyeline{flex-direction:column;gap:0.3rem}
+}
+@media(min-width:781px){.float-bar{display:none}}
+</style>
+</head>
+<body>
+
+<!-- cursor glow -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- float bar (mobile) -->
+<div class="float-bar">
+  <a class="fb-btn fb-li" href="https://www.linkedin.com/sharing/share-offsite/?url=https://scientiae-naturalis.org" target="_blank">in</a>
+  <a class="fb-btn fb-f6" href="https://www.f6s.com" target="_blank">F6S</a>
+  <a class="fb-btn fb-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://scientiae-naturalis.org" target="_blank">f</a>
+  <a class="fb-btn fb-x"  href="https://twitter.com/intent/tweet?url=https://scientiae-naturalis.org" target="_blank">𝕏</a>
+  <button class="fb-btn fb-sub" onclick="openSub()">✉</button>
+</div>
+
+<!-- SUBSCRIBE MODAL -->
+<div id="sub-modal" onclick="if(event.target===this)closeSub()">
+  <div class="sub-modal">
+    <div class="sub-side">
+      <h3>Stay in the loop. 📬</h3>
+      <p>Get deadline reminders, programme updates, scholarship calls and proceedings delivered straight to your inbox. No spam, just science.</p>
+    </div>
+    <div class="sub-form">
+      <div class="sub-form-hdr"><h4>Subscribe for Updates</h4><button class="sub-close" onclick="closeSub()">✕</button></div>
+      <input class="sub-field" type="text" placeholder="Full Name">
+      <input class="sub-field" type="email" placeholder="Institutional Email Address">
+      <input class="sub-field" type="text" placeholder="Affiliation (University / Organisation)">
+      <button class="sub-submit" onclick="handleSub()">Subscribe ✓</button>
+      <p class="sub-priv">We respect your privacy. No data is shared with third parties.</p>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-brand" href="#home"><span>Scientiae</span>-Naturalis</a>
+  <button class="hamburger" id="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#agenda">Agenda</a></li>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#scientific-committee">Committees</a></li>
+    <li><a href="#organizers">Organizers</a></li>
+    <li><a href="#downloads">Downloads</a></li>
+    <li><a href="#sponsors">Sponsors</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="pay-dot"><a href="#" id="openPayBtn">·</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a class="shr-btn shr-li" href="https://www.linkedin.com/sharing/share-offsite/?url=https://scientiae-naturalis.org" target="_blank">in</a>
+    <a class="shr-btn shr-f6" href="https://www.f6s.com" target="_blank">F6S</a>
+    <a class="shr-btn shr-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://scientiae-naturalis.org" target="_blank">f</a>
+    <a class="shr-btn shr-x"  href="https://twitter.com/intent/tweet?url=https://scientiae-naturalis.org" target="_blank">𝕏</a>
+  </div>
+</nav>
+
+<!-- ══ HOME ══ -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="mesh"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="pulse"></span>Satellite Event · European Climate Pact · 2026</div>
+    <div class="hero-eyeline">
+      <span class="hero-kicker">War Resilient</span>
+    </div>
+    <h1 class="hero-h">Agrifood<br><span class="teal">Biotech &amp; AI</span></h1>
+    <p class="hero-tagline">Towards Inclusive, Resilient and Sustainable Agrifood Systems</p>
+    <div class="hero-pills">
+      <span class="pill">100% Remote</span>
+      <span class="pill">Asynchronous Video</span>
+      <span class="pill">Digital Posters</span>
+      <span class="pill">Global South Focus</span>
+      <span class="pill">DOI Guaranteed</span>
+      <span class="pill">Google Scholar Indexed</span>
+    </div>
+    <p style="font-size:1rem;color:rgba(255,255,255,0.62);max-width:640px;margin-bottom:1.4rem;line-height:1.82">Armed conflicts across the Middle East, Sudan, Ukraine and beyond have driven some of the worst food crises in recent memory. We bring together startups, researchers, students and policymakers to explore how climate-adaptive crops and low-tech biotech can rebuild disrupted supply chains.</p>
+    <div class="cta-cluster">
+      <a href="#abstract" class="btn-main">Submit Abstract 📝</a>
+      <a href="#agenda" class="btn-ghost">View Programme</a>
+      <button class="btn-sub" onclick="openSub()">Get Updates 📬</button>
+    </div>
+    <div class="dl-strip">
+      <a href="#" class="btn-dl" onclick="alert('Conference Agenda — coming soon.')"><span class="btn-dl-icon">📅</span>Agenda PDF</a>
+      <a href="#" class="btn-dl" onclick="alert('Call for Contributions — coming soon.')"><span class="btn-dl-icon">📢</span>Call for Contributions</a>
+      <a href="#" class="btn-dl" onclick="alert('Abstract Book — available 15 June 2026.')"><span class="btn-dl-icon">📖</span>Abstract Book</a>
+      <a href="#" class="btn-dl" onclick="alert('Proceedings — available October 2026.')"><span class="btn-dl-icon">📚</span>Proceedings Book</a>
+    </div>
+    <div class="deadline-bar">
+      <div class="dli"><span class="dl-l">Abstract Submission</span><span class="dl-d">25 May 2026</span></div>
+      <div class="dli"><span class="dl-l">Notification</span><span class="dl-d">15 June 2026</span></div>
+      <div class="dli"><span class="dl-l">Conference Launch</span><span class="dl-d">10 July 2026</span></div>
+      <div class="dli"><span class="dl-l">Post-Conference</span><span class="dl-d">10 Oct 2026</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ AGENDA ══ -->
+<section id="agenda" class="section section-light">
+  <div class="si">
+    <span class="sec-eyebrow">Programme</span>
+    <h2 class="sec-h">Conference <em>Agenda</em></h2>
+    <div class="teal-rule"></div>
+    <p class="sec-lead">Nine thematic areas, three session types, four prerecorded plenaries per theme, all fully asynchronous and accessible across every time zone.</p>
+    <div class="format-cards reveal">
+      <div class="fc"><div class="ico">🎞</div><h4>Prerecorded Plenaries</h4><p>Four plenaries per main theme, on demand across all time zones.</p></div>
+      <div class="fc"><div class="ico">📋</div><h4>Tech-Brief Sessions</h4><p>High-impact presentations from startups and PhD researchers.</p></div>
+      <div class="fc"><div class="ico">⚡</div><h4>5-Minute Pitch</h4><p>Rapid startup and research demos with asynchronous peer feedback.</p></div>
+      <div class="fc"><div class="ico">🗳</div><h4>Async Q&amp;A Forum</h4><p>Peer discussion, voting and best-poster selection throughout the event.</p></div>
+    </div>
+    <div class="tabs">
+      <button class="tb active" onclick="switchTab('s1',this)">Researchers &amp; Experts</button>
+      <button class="tb" onclick="switchTab('s2',this)">Students &amp; Startups</button>
+      <button class="tb" onclick="switchTab('s3',this)">Tech-to-Market / AI</button>
+    </div>
+    <div class="tp active" id="s1">
+      <div class="sess reveal"><h3>Facing Climate Change: Adaptation in Crop &amp; Forestry Sectors</h3><div class="sess-grid"><div class="sc"><h4>Topics</h4><ul><li>Rice varieties for lowland farming adaptation</li><li>Agricultural biotechnology for climate resilience</li><li>Molecular breeding in legumes for resource-poor farmers</li><li>Genomic approaches for fitness traits in forest landscapes</li></ul></div></div></div>
+      <div class="sess reveal"><h3>Improving Productivity Through Enhanced Resource-Use Efficiency</h3><div class="sess-grid"><div class="sc"><h4>Crops</h4><ul><li>Green super rice: water and nitrogen efficiency</li><li>Molecular breeding in underutilised crops</li></ul></div><div class="sc"><h4>Aquaculture &amp; Livestock</h4><ul><li>Biotechnology in aquaculture genetic improvement</li><li>Bridging the biotech-livestock productivity gap</li><li>Tree genetic resources utilisation in forestry</li></ul></div></div></div>
+      <div class="sess reveal"><h3>Social and Economic Impacts for Smallholders</h3><div class="sess-grid"><div class="sc"><h4>Key Topics</h4><ul><li>Evidence-based policymaking and impact assessment</li><li>Country experience in agricultural policy</li><li>Factors enabling positive livelihood impacts</li></ul></div></div></div>
+    </div>
+    <div class="tp" id="s2">
+      <div class="sess reveal"><h3>Climate Change Adaptation: Livestock and Fishery Sectors</h3><div class="sess-grid"><div class="sc"><h4>Topics</h4><ul><li>Fish breeding for future environments under climate change</li><li>Diagnostic tools and vaccines for aquatic animals</li><li>Biotechnologies for animal breeding and climate adaptation</li><li>Feed quality and quantity: an animal nutrition perspective</li><li>Landscape genomics of adaptive diversity in goats</li></ul></div></div></div>
+      <div class="sess reveal"><h3>Post-Production Value Addition and Food Safety</h3><div class="sess-grid"><div class="sc"><h4>Topics</h4><ul><li>Fermentation-derived feed additives for livestock</li><li>Biotechnologies to improve shelf life of fruit</li><li>Enhancing food security from local food crops</li><li>Ensuring food safety through biotechnologies</li><li>Aflasafe: aflatoxin reduction case study</li><li>Detecting tuberculosis pathogens in cattle</li></ul></div></div></div>
+      <div class="sess reveal"><h3>Public Policies, Strategies and Regulations</h3><div class="sess-grid"><div class="sc"><h4>Topics</h4><ul><li>Intellectual property rights: developing-country perspectives</li><li>Regulation: private sector and civil society views</li><li>National policies for agricultural biotechnologies</li><li>Ensuring policies benefit smallholders</li></ul></div></div></div>
+    </div>
+    <div class="tp" id="s3">
+      <div class="sess reveal"><h3>Tech-to-Market / AI-Driven Sustainability Sessions</h3><div class="sess-grid"><div class="sc"><h4>Sustainable Agriculture</h4><ul><li>Climate-smart agriculture</li><li>Soil, water and biodiversity</li><li>Land use and agroecology</li><li>Ecosystem services and resilience</li></ul></div><div class="sc"><h4>Crop &amp; Animal Science</h4><ul><li>Crop production and innovation</li><li>Plant physiology and stress adaptation</li><li>Animal health and welfare</li><li>Livestock and pastoralism</li><li>One Health approaches</li></ul></div><div class="sc"><h4>Biotech &amp; Environment</h4><ul><li>Agricultural biotechnology tools</li><li>Microbiome and plant health</li><li>Emerging bio-based innovations</li><li>Biodiversity conservation</li></ul></div><div class="sc"><h4>Digitalisation &amp; Policy</h4><ul><li>Precision agriculture and data</li><li>Smart farming technologies</li><li>Digital food traceability</li><li>EU standards and sustainability</li></ul></div></div></div>
+    </div>
+    <p style="font-family:var(--mono);font-size:0.6rem;color:#94a3b8;margin-top:1rem;letter-spacing:0.06em">* Agenda is subject to revision prior to the July 2026 launch.</p>
+  </div>
+</section>
+
+<!-- ══ ABSTRACT ══ -->
+<section id="abstract" class="section section-mist">
+  <div class="si">
+    <span class="sec-eyebrow">Call for Submissions</span>
+    <h2 class="sec-h">Abstract <em>Submission</em></h2>
+    <div class="teal-rule"></div>
+    <p class="sec-lead">Every accepted submission receives a citable DOI. The call prioritises Tech-to-Market and AI-Driven Sustainability themes, with a particular welcome for work from the Global South and the startup ecosystem.</p>
+    <div class="ab-prose-card reveal">
+      Every accepted poster is assigned a unique <strong>DOI</strong>, giving researchers immediate, citable recognition. All presentations are evaluated by <strong>three independent experts</strong>, upholding rigorous academic standards. Proceedings carry both <strong>ISBN and ISSN</strong>, are indexed on Google Scholar and permanently archived on Zenodo. A volunteer team of <strong>120 researchers and practitioners</strong> from universities and startups worldwide provides subtitles for non-native speakers and full technical support. Each participant receives a <strong>Digital Certificate of Participation</strong> with blockchain verification, a lasting and tamper-proof record of scholarly contribution. The conference follows <strong>EU Metadata Policies and Standards</strong>, ensuring long-term discoverability and alignment with open-science frameworks.
+    </div>
+    <div class="sub-cats reveal">
+      <div class="sub-cat"><h4>📄 Digital Posters</h4><p>A0 landscape format. Ideal for PhD research and startup tech-previews, and the preferred format for participants submitting from conflict-affected regions.</p></div>
+      <div class="sub-cat"><h4>🎬 Video Presentations</h4><p>10–15 minute MP4 files in English, French or Spanish. Best for early-career academics and innovators showcasing AI in applied settings.</p></div>
+      <div class="sub-cat"><h4>⚡ Rapid Innovation Reports</h4><p>Concise, structured reports on novel biotech or AI findings, reviewed by the editorial team and archived in the conference proceedings.</p></div>
+      <div class="sub-cat"><h4>🎤 5-Minute Pitch</h4><p>Fast-paced demo slots for startups and researchers, designed for immediate peer feedback via the asynchronous Q&amp;A forum.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMMITTEES ══ -->
+<section id="scientific-committee" class="section section-dark">
+  <div class="si">
+    <span class="sec-eyebrow">Governance</span>
+    <h2 class="sec-h" style="color:var(--white)">Scientific &amp; <em>Organising Committees</em></h2>
+    <div class="teal-rule"></div>
+    <p class="sec-lead">Two distinct governing bodies uphold the academic quality and logistical integrity of the conference at every stage.</p>
+    <div class="cmte-note reveal">The Scientific Committee upholds the intellectual integrity of the programme. Its members define the thematic scope, oversee peer review and ensure outputs align with EU evidence standards on agricultural biotechnology. Every submission is evaluated by three independent reviewers drawn from the Committee's wider network.</div>
+    <div class="cmte-grid reveal">
+      <div class="cmte-box">
+        <h3>Scientific Committee</h3>
+        <ul>
+          <li><span class="role">Chair</span>To be confirmed — Agrifood Biotechnology</li>
+          <li><span class="role">Co-Chair</span>To be confirmed — AI &amp; Digital Agriculture</li>
+          <li><span class="role">Member</span>Crop Science &amp; Genomics</li>
+          <li><span class="role">Member</span>Animal Science &amp; Veterinary Systems</li>
+          <li><span class="role">Member</span>Food Safety &amp; Post-Production Technology</li>
+          <li><span class="role">Member</span>Environmental &amp; Climate Science</li>
+          <li><span class="role">Member</span>Policy, Governance &amp; Regulation</li>
+          <li><span class="role">Member</span>Rural Development &amp; Agri-food Systems</li>
+          <li><span class="role">Member</span>Global South Representative (LIC)</li>
+          <li><span class="role">Member</span>Startup &amp; Innovation Ecosystem</li>
+        </ul>
+      </div>
+      <div class="cmte-box">
+        <h3>Organising Committee</h3>
+        <ul>
+          <li><span class="role">Chair</span>To be confirmed — Conference Director</li>
+          <li><span class="role">Coord.</span>Programme &amp; Agenda Management</li>
+          <li><span class="role">Coord.</span>Abstract &amp; Submissions Platform</li>
+          <li><span class="role">Coord.</span>Communications &amp; Digital Outreach</li>
+          <li><span class="role">Coord.</span>Volunteer Editorial Team Liaison</li>
+          <li><span class="role">Coord.</span>Sponsorship &amp; Partnerships</li>
+          <li><span class="role">Coord.</span>Global South Scholarships</li>
+          <li><span class="role">Coord.</span>Publications &amp; Proceedings</li>
+          <li><span class="role">Coord.</span>VOD Pipeline &amp; Technical Operations</li>
+          <li><span class="role">Coord.</span>EU Metadata &amp; Standards Compliance</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rev-badges reveal">
+      <div class="rev-badge"><strong>3</strong><span>Independent Reviewers per Submission</span></div>
+      <div class="rev-badge"><strong>120</strong><span>Volunteer Editors &amp; Reviewers</span></div>
+      <div class="rev-badge"><strong>12</strong><span>Global South Scholarships</span></div>
+      <div class="rev-badge"><strong>9</strong><span>Thematic Areas</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ORGANIZERS ══ -->
+<section id="organizers" class="section section-light">
+  <div class="si">
+    <span class="sec-eyebrow">Institutional Partners</span>
+    <h2 class="sec-h">Conference <em>Organizers</em></h2>
+    <div class="teal-rule"></div>
+    <div class="org-textbox reveal">
+      <p>The <strong>Scientiae-Naturalis Conference</strong> is convened by an international consortium of universities, research institutions, startups and scientific professional organisations committed to open, evidence-based dialogue on agrifood biotechnology and artificial intelligence. As a Satellite Event of the <strong>European Climate Pact</strong>, the conference operates under EU metadata and open-science standards, and its scientific outputs contribute directly to the EU statement and call for evidence on biotechnology.</p>
+      <p>The organising infrastructure rests on a <strong>distributed volunteer model</strong>. A team of 120 researchers and practitioners from universities and startups across the Global South handles peer review, technical coordination and editorial support — including subtitles for non-native speakers and blockchain-verified Digital Certificates of Participation.</p>
+      <p><strong>Twelve scholarships</strong> are reserved for participants from Low-Income Countries and the Global South, reflecting the conference's commitment to inclusive scientific participation, particularly for researchers in regions affected by food insecurity and armed conflict.</p>
+    </div>
+    <div class="stat-row reveal">
+      <div class="stat"><div class="sn">120</div><div class="sd">Volunteer Reviewers</div></div>
+      <div class="stat"><div class="sn">12</div><div class="sd">Scholarships</div></div>
+      <div class="stat"><div class="sn">9</div><div class="sd">Thematic Areas</div></div>
+      <div class="stat"><div class="sn">3</div><div class="sd">Reviewers / Submission</div></div>
+      <div class="stat"><div class="sn">4</div><div class="sd">Languages</div></div>
+    </div>
+
+    <span class="plbl">Partner Universities &amp; Research Institutions</span>
+    <div class="partner-grid reveal">
+      <div class="pb"><div class="pn">Wageningen University &amp; Research</div><div class="pt">University</div></div>
+      <div class="pb"><div class="pn">CGIAR Research Centres</div><div class="pt">Research Network</div></div>
+      <div class="pb"><div class="pn">University of Ghana</div><div class="pt">University</div></div>
+      <div class="pb"><div class="pn">Ethiopian Institute of Agricultural Research</div><div class="pt">Research Centre</div></div>
+      <div class="pb"><div class="pn">Universidad Nacional Agraria La Molina</div><div class="pt">University</div></div>
+      <div class="pb"><div class="pn">Indian Council of Agricultural Research</div><div class="pt">Research Centre</div></div>
+      <div class="pb"><div class="pn">Université de Montpellier</div><div class="pt">University</div></div>
+      <div class="pb"><div class="pn">International Rice Research Institute</div><div class="pt">Research Centre</div></div>
+    </div>
+
+    <span class="plbl">Startups &amp; Innovation Partners</span>
+    <div class="partner-grid reveal">
+      <div class="pb"><div class="pn">Agri-AI Startup Partner A</div><div class="pt">Startup</div></div>
+      <div class="pb"><div class="pn">Biotech Venture Partner B</div><div class="pt">Startup</div></div>
+      <div class="pb"><div class="pn">GreenTech Social Enterprise C</div><div class="pt">Social Enterprise</div></div>
+      <div class="pb"><div class="pn">FoodTech Innovator D</div><div class="pt">Startup</div></div>
+      <div class="pb"><div class="pn">Climate Ventures E</div><div class="pt">Social Enterprise</div></div>
+      <div class="pb"><div class="pn">Precision Agriculture Partner F</div><div class="pt">Startup</div></div>
+    </div>
+
+    <span class="plbl">Scientific &amp; Professional Organisations</span>
+    <div class="partner-grid reveal">
+      <div class="pb"><div class="pn">European Climate Pact</div><div class="pt">EU Initiative</div></div>
+      <div class="pb"><div class="pn">FAO — Food &amp; Agriculture Organization</div><div class="pt">IGO</div></div>
+      <div class="pb"><div class="pn">Int'l Society for Plant Molecular Biology</div><div class="pt">Scientific Society</div></div>
+      <div class="pb"><div class="pn">Zenodo / CERN Open Science</div><div class="pt">Repository</div></div>
+      <div class="pb"><div class="pn">African Academy of Sciences</div><div class="pt">Scientific Society</div></div>
+      <div class="pb"><div class="pn">Open Science Platform Initiative</div><div class="pt">Repository</div></div>
+    </div>
+
+    <!-- QR -->
+    <div class="qr-row reveal">
+      <div class="qr-box">
+        <svg width="100" height="100" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" style="border:3px solid var(--navy);border-radius:4px;background:#fff;padding:5px">
+          <rect x="4" y="4" width="30" height="30" fill="none" stroke="#002147" stroke-width="3"/>
+          <rect x="10" y="10" width="18" height="18" fill="#002147"/>
+          <rect x="76" y="4" width="30" height="30" fill="none" stroke="#002147" stroke-width="3"/>
+          <rect x="82" y="10" width="18" height="18" fill="#002147"/>
+          <rect x="4" y="76" width="30" height="30" fill="none" stroke="#002147" stroke-width="3"/>
+          <rect x="10" y="82" width="18" height="18" fill="#002147"/>
+          <rect x="42" y="4" width="6" height="6" fill="#002147"/><rect x="52" y="4" width="6" height="6" fill="#002147"/><rect x="62" y="4" width="6" height="6" fill="#002147"/>
+          <rect x="42" y="14" width="6" height="6" fill="#002147"/><rect x="58" y="14" width="6" height="6" fill="#002147"/>
+          <rect x="4" y="42" width="6" height="6" fill="#002147"/><rect x="14" y="42" width="6" height="6" fill="#002147"/>
+          <rect x="24" y="48" width="6" height="6" fill="#002147"/>
+          <rect x="42" y="42" width="6" height="6" fill="#002147"/><rect x="52" y="48" width="6" height="6" fill="#002147"/>
+          <rect x="62" y="42" width="6" height="6" fill="#002147"/><rect x="72" y="48" width="6" height="6" fill="#002147"/>
+          <rect x="86" y="42" width="6" height="6" fill="#002147"/><rect x="98" y="42" width="6" height="6" fill="#002147"/>
+          <rect x="42" y="58" width="6" height="6" fill="#002147"/><rect x="58" y="62" width="6" height="6" fill="#002147"/>
+          <rect x="72" y="58" width="6" height="6" fill="#002147"/><rect x="82" y="62" width="6" height="6" fill="#002147"/>
+          <rect x="96" y="58" width="6" height="6" fill="#002147"/>
+          <rect x="42" y="72" width="6" height="6" fill="#002147"/><rect x="52" y="76" width="6" height="6" fill="#002147"/>
+          <rect x="66" y="72" width="6" height="6" fill="#002147"/><rect x="76" y="76" width="6" height="6" fill="#002147"/>
+          <rect x="92" y="72" width="6" height="6" fill="#002147"/>
+          <rect x="42" y="86" width="6" height="6" fill="#002147"/><rect x="56" y="90" width="6" height="6" fill="#002147"/>
+          <rect x="68" y="86" width="6" height="6" fill="#002147"/><rect x="80" y="90" width="6" height="6" fill="#002147"/>
+          <rect x="92" y="86" width="6" height="6" fill="#002147"/><rect x="100" y="96" width="6" height="6" fill="#002147"/>
+        </svg>
+      </div>
+      <div class="qr-text">
+        <h4>Scan to access the conference</h4>
+        <p>Point your smartphone camera at this code to open the Scientiae-Naturalis Conference portal. Share it on posters, flyers and institutional notice boards.</p>
+        <span class="qr-url">scientiae-naturalis.org</span>
+      </div>
+    </div>
+
+    <div class="vol-box reveal">
+      <h3>The Editorial &amp; Review Volunteer Team</h3>
+      <p>120 researchers and practitioners from universities and startups across the Global South handle review, revision and technical coordination. They add subtitles to video submissions and issue each participant's blockchain-verified Digital Certificate of Participation, building a recognised and tamper-proof record of scholarly contribution.</p>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin:2rem 0 0.9rem;font-weight:700">Expected Outcomes</h3>
+    <div class="out-grid reveal">
+      <div class="out-card"><span style="font-size:1rem">🌿</span><p>A <strong>Call for Action</strong> on biotechnologies for efficient, inclusive and sustainable agrifood systems.</p></div>
+      <div class="out-card"><span style="font-size:1rem">📚</span><p><strong>Conference Proceedings</strong> with ISBN and ISSN, archived on Zenodo and indexed on Google Scholar.</p></div>
+      <div class="out-card"><span style="font-size:1rem">🇪🇺</span><p>Consolidated summaries informing the <strong>EU call for evidence on biotechnology</strong>.</p></div>
+      <div class="out-card"><span style="font-size:1rem">🎬</span><p>A full <strong>VOD pipeline</strong> for extended community access beyond July 2026.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DOWNLOADS ══ -->
+<section id="downloads" class="section">
+  <div class="si">
+    <span class="sec-eyebrow" style="color:var(--teal)">Resources</span>
+    <h2 class="sec-h" style="color:var(--white)">Grab what <em>you need</em> 📥</h2>
+    <div class="teal-rule"></div>
+    <p class="sec-lead">All key conference documents in one place. More files will appear as deadlines approach.</p>
+    <div class="dl-cards reveal">
+      <div class="dl-card" onclick="alert('Conference Agenda — coming soon.')">
+        <div class="dl-emoji">📅</div>
+        <h4>Conference Agenda</h4>
+        <p>Full programme with session times, thematic tracks and speaker slots for all three conference days.</p>
+        <div class="dl-btn">↓ Download PDF</div>
+      </div>
+      <div class="dl-card" onclick="alert('Call for Contributions — coming soon.')">
+        <div class="dl-emoji">📢</div>
+        <h4>Call for Contributions</h4>
+        <p>Full submission guidelines, formatting requirements, deadlines and evaluation criteria for all submission types.</p>
+        <div class="dl-btn">↓ Download PDF</div>
+      </div>
+      <div class="dl-card" onclick="alert('Abstract Book — available 15 June 2026.')">
+        <div class="dl-emoji">📖</div>
+        <h4>Abstract Book</h4>
+        <p>Compiled abstracts of all accepted submissions, with DOIs, author affiliations and thematic index. Available after notification.</p>
+        <div class="dl-btn">↓ Available 15 June 2026</div>
+      </div>
+      <div class="dl-card" onclick="alert('Proceedings Book — available October 2026.')">
+        <div class="dl-emoji">📚</div>
+        <h4>Proceedings Book</h4>
+        <p>Full conference proceedings with ISBN and ISSN, indexed on Google Scholar and archived permanently on Zenodo.</p>
+        <div class="dl-btn">↓ Available October 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SPONSORS ══ -->
+<section id="sponsors" class="section section-dark">
+  <div class="si">
+    <span class="sec-eyebrow">Partnerships</span>
+    <h2 class="sec-h" style="color:var(--white)">Sponsors <em>&amp; Partners</em></h2>
+    <div class="teal-rule"></div>
+    <div class="p-flag">◆ Satellite Event · European Climate Pact</div>
+    <p class="sec-lead">The conference welcomes organisational partners and sponsors from academia, industry, civil society and the public sector.</p>
+    <div class="tags">
+      <span class="tag">Startups</span><span class="tag">PhD Researchers</span><span class="tag">Governments</span>
+      <span class="tag">IGOs</span><span class="tag">Academia</span><span class="tag">Civil Society</span>
+      <span class="tag">Private Sector</span><span class="tag">Philanthropic Foundations</span>
+      <span class="tag">Producer Organisations</span><span class="tag">Policymakers</span>
+    </div>
+    <div class="tier-grid reveal">
+      <div class="tier-card"><span class="tl">Lead Partner</span><h4>Platinum</h4><p>Full branding across all conference materials, VOD pipeline and proceedings.</p></div>
+      <div class="tier-card"><span class="tl">Core Partner</span><h4>Gold</h4><p>Session sponsorship and featured presence in the Abstract Book and digital programme.</p></div>
+      <div class="tier-card"><span class="tl">Supporting Partner</span><h4>Silver</h4><p>Logo placement across digital platforms and inclusion in the Proceedings.</p></div>
+      <div class="tier-card"><span class="tl">Scholar Sponsor</span><h4>Scholarship Fund</h4><p>Fund one or more Global South scholarships, with named recognition in the proceedings.</p></div>
+    </div>
+    <p style="font-size:0.88rem;color:rgba(255,255,255,0.45);margin-top:1.4rem">For partnership enquiries → <a href="mailto:scientiae-naturalis-marketing@yahoo.com" style="color:var(--teal)">scientiae-naturalis-marketing@yahoo.com</a></p>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact" class="section section-mist">
+  <div class="si">
+    <span class="sec-eyebrow">Get in Touch</span>
+    <h2 class="sec-h">Contact <em>the Team</em></h2>
+    <div class="teal-rule"></div>
+    <p class="sec-lead">Three dedicated mailboxes. One team. We aim to respond within three working days.</p>
+    <div class="contact-grid reveal">
+      <div class="cc">
+        <h4>Registration &amp; Participation</h4>
+        <p>Abstract submissions, registration queries, scholarship applications and payment enquiries.</p>
+        <a href="mailto:scientiae-naturalis-registration@yahoo.com">scientiae-naturalis-registration@yahoo.com</a>
+      </div>
+      <div class="cc">
+        <h4>Journal &amp; Publications</h4>
+        <p>Proceedings, Abstract Book, DOI assignments, ISBN/ISSN matters and post-conference publications.</p>
+        <a href="mailto:scientiae-naturalis-journal@yahoo.com">scientiae-naturalis-journal@yahoo.com</a>
+      </div>
+      <div class="cc">
+        <h4>Marketing &amp; Partnerships</h4>
+        <p>Sponsorship proposals, media partnerships, institutional collaboration and promotional enquiries.</p>
+        <a href="mailto:scientiae-naturalis-marketing@yahoo.com">scientiae-naturalis-marketing@yahoo.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT (hidden) -->
+<div id="payment">
+  <div class="pay-inner">
+    <div class="pay-hdr">
+      <h2>Secure Payment Portal</h2>
+      <button class="pay-close" onclick="closePayment()">Close ✕</button>
+    </div>
+    <div class="pay-apc"><p><strong>Standard Article Processing Charge: €100 / USD 100.</strong> Payment may be made in your local currency or any internationally accepted currency. The exact amount will appear on the official invoice, calculated at the prevailing exchange rate.</p></div>
+    <div class="pay-cards">
+      <div class="pay-card"><h3>PayPal</h3><span class="pc-sub">International Cards &amp; PayPal Accounts</span><button class="pay-now" onclick="alert('PayPal integration pending.')">Pay Now</button></div>
+      <div class="pay-card"><h3>Stripe</h3><span class="pc-sub">Credit / Debit Cards (Global)</span><button class="pay-now" onclick="alert('Stripe integration pending.')">Pay Now</button></div>
+      <div class="pay-card"><h3>Razorpay</h3><span class="pc-sub">Cards, Net Banking &amp; International Payments</span><button class="pay-now" onclick="alert('Razorpay integration pending.')">Pay Now</button></div>
+      <div class="pay-card"><h3>Bank / Wire Transfer</h3><span class="pc-sub">Domestic &amp; International Transfers</span><button class="inv-btn" onclick="alert('Invoice request noted. Banking details will follow by email.')">Request Invoice</button></div>
+    </div>
+    <div class="pay-notes">
+      <h4>Important Information</h4>
+      <ul>
+        <li>Standard APC: €100 / USD 100 per submission.</li>
+        <li>Payments may be made in your local currency or any internationally accepted currency.</li>
+        <li>The exact payable amount will appear on the official invoice at the prevailing conversion rate.</li>
+        <li>For invoice queries: <a href="mailto:scientiae-naturalis-registration@yahoo.com" style="color:var(--teal)">scientiae-naturalis-registration@yahoo.com</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p class="fb">Scientiae-Naturalis Conference 2026</p>
+  <div class="fm">
+    War Resilient Agrifood Biotech &amp; AI · Satellite Event of the European Climate Pact · 100% Remote · July 2026<br>
+    <a href="mailto:scientiae-naturalis-registration@yahoo.com">Registration</a> ·
+    <a href="mailto:scientiae-naturalis-journal@yahoo.com">Journal</a> ·
+    <a href="mailto:scientiae-naturalis-marketing@yahoo.com">Marketing</a><br>
+    Proceedings archived on Zenodo · Google Scholar Indexed · EU Metadata Standards · ISBN / ISSN<br>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://scientiae-naturalis.org" target="_blank">LinkedIn</a> ·
+    <a href="https://www.f6s.com" target="_blank">F6S</a> ·
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://scientiae-naturalis.org" target="_blank">Facebook</a> ·
+    <a href="https://twitter.com/intent/tweet?url=https://scientiae-naturalis.org" target="_blank">X</a>
+  </div>
+</footer>
+
+<script>
+// Cursor glow
+const glow = document.getElementById('cursorGlow');
+document.addEventListener('mousemove', e => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top  = e.clientY + 'px';
+});
+
+// Hamburger
+const hbg = document.getElementById('hbg');
+const nl  = document.getElementById('navLinks');
+hbg.addEventListener('click', () => nl.classList.toggle('open'));
+nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nl.classList.remove('open')));
+
+// Active nav on scroll
+const secs = document.querySelectorAll('section[id]');
+const nas  = document.querySelectorAll('.nav-links a[href^="#"]');
+const obs  = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      nas.forEach(a => a.classList.remove('active'));
+      const h = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (h) h.classList.add('active');
+    }
+  });
+}, { threshold: 0.25 });
+secs.forEach(s => obs.observe(s));
+
+// Scroll reveal
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      e.target.style.transitionDelay = (i * 0.07) + 's';
+      e.target.classList.add('visible');
+      revObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+// Tabs
+function switchTab(id, btn) {
+  document.querySelectorAll('.tp').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tb').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Payment
+document.getElementById('openPayBtn').addEventListener('click', e => {
+  e.preventDefault();
+  const p = document.getElementById('payment');
+  p.classList.add('visible');
+  setTimeout(() => p.scrollIntoView({ behavior: 'smooth' }), 40);
+});
+function closePayment() {
+  document.getElementById('payment').classList.remove('visible');
+  document.getElementById('sponsors').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Subscribe
+function openSub() {
+  document.getElementById('sub-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSub() {
+  document.getElementById('sub-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function handleSub() {
+  const em = document.querySelector('#sub-modal .sub-field[type="email"]').value;
+  if (!em || !em.includes('@')) { alert('Please enter a valid email address.'); return; }
+  alert('Thank you for subscribing. Conference updates will be sent to the address provided.');
+  closeSub();
+}
+if (!sessionStorage.getItem('subShown')) {
+  setTimeout(() => { openSub(); sessionStorage.setItem('subShown','1'); }, 9000);
+}
+</script>
+</body>
+</html>
